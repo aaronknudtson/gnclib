@@ -12,7 +12,13 @@ void EOM::eom(float t, const VectorXf *x, VectorXf *xdot) {
   *xdot << (*xdot)(seq(3, 6)), a; // overwrite x with new state
 }
 
-Vector3f EOM::a_drag(VectorXf x) {}
+Vector3f EOM::a_drag(VectorXf x) {
+  float gamma = atmospheric_density(&x);
+  VectorXf v_vec = x(seq(3, 6));
+  Vector3f v_rel = v_vec + Vector3f(w * x(1), w * x(0), 0);
+  Vector3f a = -1 / 2 * C_D * A / m * gamma * v_vec.norm() * v_rel;
+}
+
 Vector3f EOM::a_twobody(VectorXf x) {}
 
-float EOM::atmospheric_density() {}
+float EOM::atmospheric_density(const VectorXf *x) {}
