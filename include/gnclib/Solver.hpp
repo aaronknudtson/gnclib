@@ -3,22 +3,22 @@
 
 #include <Eigen/Dense>
 
-
-using Eigen::VectorXd;
+using Eigen::VectorXf;
 
 class Solver {
-private:
-  VectorXd rk4(std::function<VectorXd(float, VectorXd)> f, VectorXd xi, float t,
-               float h);
+
 public:
-  std::function<VectorXd(float, VectorXd)> f; // function
-  VectorXd x;                                 // state vector
-  float h;                                    // timestemp
-  float t;                                    // start time
-  Solver(std::function<VectorXd(float, VectorXd)> func, VectorXd state_vec,
-         float timestep, float starttime);
-  VectorXd *propogate();
+  typedef std::function<void(float, const VectorXf *, VectorXf *)> SolverFn;
+  SolverFn f; // function
+  VectorXf x; // state vector
+  float h;    // timestemp
+  float t;    // start time
+  Solver(SolverFn func, VectorXf state_vec, float timestep, float starttime);
+  void propogate();
   void dispState();
+
+private:
+  void rk4(SolverFn f, VectorXf *xi, float t, float h);
 };
 
 #endif // SOLVER_H
