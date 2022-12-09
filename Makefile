@@ -5,7 +5,7 @@ all: compile
 run: compile
 	cd build && ./app/app
 
-test: gen 
+test: compile
 	cd build && ctest .
 
 gen: mkbuild

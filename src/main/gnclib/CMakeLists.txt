@@ -1,6 +1,7 @@
 add_library(
     gnclib
-    OrbitSim.cpp
+    Physics.cpp
+    Solver.cpp
 )
 
 target_include_directories(gnclib PUBLIC "${PROJECT_SOURCE_DIR}/include")
