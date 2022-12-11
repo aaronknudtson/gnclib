@@ -8,16 +8,16 @@
 template <int rows> class Solver {
 
 public:
-  typedef Matrix<float, rows, 1> StateVector;
+  typedef Matrix<double, rows, 1> StateVector;
   // FIELDS
   Physics<rows> *physics; // object to access eom function
   StateVector x;             // state vector
-  float h;                // timestemp
-  float t;                // start time
+  double h;                // timestemp
+  double t;                // start time
 
   // CONSTRUCTOR
-  Solver(Physics<rows> *physics, StateVector state_vec, float timestep,
-         float starttime) {
+  Solver(Physics<rows> *physics, StateVector state_vec, double timestep,
+         double starttime) {
     this->physics = physics;
     this->x = state_vec;
     this->h = timestep;
@@ -29,11 +29,11 @@ public:
     rk4(this->physics, &x, t, h); // update state x
     t = t + h;                    // update state t
   }
-  void dispState() { std::cout << x; }
+  void dispState() { std::cout << "State at t=" << t << ":\n" << x << "\n"; }
 
 private:
   // TODO: Add more numerical solvers and expose them as algorithm selections
-  void rk4(Physics<rows> *physics, StateVector *x, float t, float h) {
+  void rk4(Physics<rows> *physics, StateVector *x, double t, double h) {
     StateVector k1, k2, k3, k4, tmp;
     physics->eom(t, x, &k1);
     tmp = *x + h * k1 / 2;

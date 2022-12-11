@@ -13,19 +13,22 @@ TEST(HelloTest, BasicAssertions) {
 }
 
 TEST(OrbitTest, BasicAssertions) {
-  using Eigen::VectorXf;
+  using Eigen::VectorXd;
   // initialize physics
-  // float C_D = 2.2, A = 10, m = 800; // nondim, m^2, kg
+  // double C_D = 2.2, A = 10, m = 800; // nondim, m^2, kg
   const int svRows = 6;
-  typedef Matrix<float, svRows, 1> StateVector;
+  typedef Matrix<double, svRows, 1> StateVector;
   PhysicsTwoBody<svRows> physics;
 
   // initialize state vector
   StateVector x;
   x << 0., -0.1, 1.2, 1.1, 0.1, 0.2;
   x = x * physics.R_e;
-  float h = 10, t0 = 0, t_max = 10000;
-  VectorXf t = VectorXf::LinSpaced(h, t0, t_max);
+  x.block(3, 0, 3, 1) = x.block(3, 0, 3, 1) / physics.TU;
+
+  std::cout << x << "\n\n";
+  double h = 10, t0 = 0, t_max = 1000;
+  VectorXd t = VectorXd::LinSpaced((t_max - t0) / h, t0, t_max);
 
   // initialize solver
   Solver<svRows> solver(&physics, x, h, t0);
@@ -33,6 +36,7 @@ TEST(OrbitTest, BasicAssertions) {
   for (int i = 0; i < t.rows(); i++) {
     // create orbit in here
     solver.propogate();
+    solver.dispState();
   }
   solver.dispState();
 }
