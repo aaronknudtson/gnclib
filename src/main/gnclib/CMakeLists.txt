@@ -3,7 +3,7 @@ add_library(
     Physics.cpp
     Solver.cpp
     PhysicsTwoBody.cpp
-    PhysicsTwoBodyDrag.cpp
+    # PhysicsTwoBodyDrag.cpp
 )
 
 target_include_directories(gnclib PUBLIC "${PROJECT_SOURCE_DIR}/include")

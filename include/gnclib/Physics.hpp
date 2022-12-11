@@ -3,12 +3,12 @@
 
 #include <Eigen/Dense>
 
-using Eigen::Vector3f;
-using Eigen::VectorXf;
+using Eigen::Matrix;
 
-class Physics {
+template <int svRows> class Physics {
 public:
-  virtual void eom(float t, const VectorXf *x, VectorXf *xdot) = 0; // {}
+  typedef Matrix<float, svRows, 1> StateVector;
+  virtual void eom(float t, const StateVector *x, StateVector *xdot) = 0; // {}
 };
 
 #endif // PHYSICS_H
