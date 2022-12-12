@@ -2,3 +2,6 @@
 out/
 build/
 .cache/
+notebooks/.ipynb_checkpoints
+*.sqlite
+*.db

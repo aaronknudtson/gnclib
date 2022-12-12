@@ -2,6 +2,9 @@
 
 all: compile
 
+py: compile
+	python orbit.py
+
 test: compile
 	cd build && ctest .
 

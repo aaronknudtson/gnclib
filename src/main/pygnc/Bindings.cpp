@@ -22,10 +22,9 @@ MatrixXd orbitSim(Eigen::Ref<const StateVector> x0, double h, double t0,
   PhysicsTwoBody<svRows> physics;
 
   // initialize state vector
-  std::cout << x0 << "\n\n";
   const int steps = getSteps(h, t0, t_max);
   VectorXd t = VectorXd::LinSpaced(steps, t0, t_max);
-  MatrixXd x;
+  MatrixXd x(svRows, t.rows());
 
   // initialize solver
   Solver<svRows> solver(&physics, x0, h, t0);
@@ -42,6 +41,6 @@ MatrixXd orbitSim(Eigen::Ref<const StateVector> x0, double h, double t0,
 
 PYBIND11_MODULE(pygnc, handle) {
   handle.doc() = "Hey!";
-  handle.def("orbit_sim", &orbitSim,
+  handle.def("twobody_sim", &orbitSim,
              py::return_value_policy::reference_internal);
 }
