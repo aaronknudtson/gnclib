@@ -9,7 +9,8 @@ compile: gen
 	cd build && cmake --build . --target all
 
 gen: mkbuild
-	cd build && cmake ..
+	# cd build && cmake .. 
+	cd build && cmake .. -DPYTHON_EXECUTABLE=/opt/homebrew/anaconda3/bin/python
 
 mkbuild:
 	mkdir -p build

@@ -15,10 +15,13 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_subdirectory(external/eigen)
+add_subdirectory(external/pybind11)
 add_subdirectory(src/main/gnclib)
+add_subdirectory(src/main/pygnc)
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 target_link_libraries(gnclib Eigen3::Eigen)
+target_link_libraries(pygnc PRIVATE gnclib Eigen3::Eigen)
 
 # test
 enable_testing()

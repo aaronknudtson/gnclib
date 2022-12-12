@@ -21,22 +21,22 @@ TEST(OrbitTest, BasicAssertions) {
   PhysicsTwoBody<svRows> physics;
 
   // initialize state vector
-  StateVector x;
-  x << 0., -0.1, 1.2, 1.1, 0.1, 0.2;
-  x = x * physics.R_e;
-  x.block(3, 0, 3, 1) = x.block(3, 0, 3, 1) / physics.TU;
+  StateVector x0;
+  x0 << 0., -0.1, 1.2, 1.1, 0.1, 0.2;
+  x0 = x0 * physics.R_e;
+  x0.block(3, 0, 3, 1) = x0.block(3, 0, 3, 1) / physics.TU;
 
-  std::cout << x << "\n\n";
+  std::cout << x0 << "\n\n";
   double h = 10, t0 = 0, t_max = 1000;
-  VectorXd t = VectorXd::LinSpaced((t_max - t0) / h, t0, t_max);
+  const int nt = (t_max - t0) / h;
+  VectorXd t = VectorXd::LinSpaced(nt, t0, t_max);
 
   // initialize solver
-  Solver<svRows> solver(&physics, x, h, t0);
+  Solver<svRows> solver(&physics, x0, h, t0);
 
   for (int i = 0; i < t.rows(); i++) {
     // create orbit in here
     solver.propogate();
-    solver.dispState();
   }
   solver.dispState();
 }
