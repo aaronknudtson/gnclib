@@ -15,6 +15,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_subdirectory(external/eigen)
+set(PYBIND11_FINDPYTHON ON)
 add_subdirectory(external/pybind11)
 add_subdirectory(src/main/gnclib)
 add_subdirectory(src/main/pygnc)
