@@ -6,7 +6,6 @@
 #include <iostream>
 
 using Eigen::Matrix;
-// using Eigen::seq;
 using Eigen::Vector3d;
 
 template <int rows = 6> class PhysicsTwoBody : public Physics<rows> {
@@ -19,15 +18,19 @@ public:
 
   typedef Matrix<double, rows, 1> StateVector;
 
-  void eom(double t, const StateVector *x, StateVector *xdot) override {
-    Vector3d a_twobody;
-    eom_twobody(x, &a_twobody);
-    xdot->block(0, 0, 3, 1) = x->block(3, 0, 3, 1);
-    xdot->block(3, 0, 3, 1) = a_twobody;
+  StateVector eom(double t, const StateVector &x) override {
+    // more readable version:
+    // Vector3d a_twobody = eom_twobody(x);
+    // StateVector xdot;
+    // xdot.block(0, 0, 3, 1) = x.block(3, 0, 3, 1);
+    // xdot.block(3, 0, 3, 1) = eom_twobody(x);
+
+    // oneline (I think no copies?)
+    return (StateVector() << x.block(3, 0, 3, 1), eom_twobody(x)).finished();
   }
 
-  void eom_twobody(const StateVector *x, Vector3d *a) {
-    *a = -Mu_e * x->block(0, 0, 3, 1) / pow(x->block(0, 0, 3, 1).norm(), 3);
+  Vector3d eom_twobody(const StateVector &x) {
+    return -Mu_e * x.block(0, 0, 3, 1) / pow(x.block(0, 0, 3, 1).norm(), 3);
   }
 };
 

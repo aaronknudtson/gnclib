@@ -2,9 +2,9 @@
 #include <gtest/gtest.h>
 #include <iostream>
 
+#include "gnclib/Helpers.hpp"
 #include "gnclib/PhysicsTwoBody.hpp"
 #include <gnclib/Solver.hpp>
-#include "gnclib/Helpers.hpp"
 
 TEST(HelloTest, BasicAssertions) {
   // Expect two strings not to be equal.
@@ -42,5 +42,4 @@ TEST(OrbitTest, BasicAssertions) {
   solver.dispState();
 }
 
-TEST(OrbitalParamsTest, BasicAssertions) {
-}
+TEST(OrbitalParamsTest, BasicAssertions) {}

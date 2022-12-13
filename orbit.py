@@ -9,7 +9,7 @@ import pygnc
 x0 = np.array([0.0, -0.1, 1.2, 1.1, 0.1, 0.2])
 x0 = x0 * 6378.245
 x0[3:] = x0[3:] / (13.45 * 60)
-h, t0, t_max = 10.0, 0.0, 1000000.0
+h, t0, t_max = 100.0, 0.0, 1000000.0
 t = np.linspace(t0, t_max, int((t_max - t0) / h))
 
 x = pygnc.twobody_sim(x0, h, t0, t_max)
