@@ -4,6 +4,7 @@
 
 #include "gnclib/PhysicsTwoBody.hpp"
 #include <gnclib/Solver.hpp>
+#include "gnclib/Helpers.hpp"
 
 TEST(HelloTest, BasicAssertions) {
   // Expect two strings not to be equal.
@@ -39,4 +40,7 @@ TEST(OrbitTest, BasicAssertions) {
     solver.propogate();
   }
   solver.dispState();
+}
+
+TEST(OrbitalParamsTest, BasicAssertions) {
 }

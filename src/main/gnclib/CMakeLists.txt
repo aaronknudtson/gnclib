@@ -3,6 +3,7 @@ add_library(
     Physics.cpp
     Solver.cpp
     PhysicsTwoBody.cpp
+    Helpers.cpp
     # PhysicsTwoBodyDrag.cpp
 )
 
